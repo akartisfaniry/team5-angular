@@ -1,0 +1,100 @@
+:host {
+    @mixin hero_btn($col1, $col2, $pad1, $pad2, $bRadius) {
+        display: inline-block;
+        padding: $pad1 $pad2;
+        background-color: $col1;
+        color: $col2;
+        border-radius: $bRadius;
+        border: 1px solid $col1;
+        transition: all .3s;
+      
+        &:hover {
+          background-color: transparent;
+          color: $col1;
+        }
+    }
+    .slider_section {
+        display: flex;
+        align-items: center;
+        padding-top: 25px;
+        padding-bottom: 90px;
+        position: relative;
+        
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 450px;
+            height: 500px;
+            transform: translateY(-100px);
+            // background-color: #f3ecdb;
+            // background-color: #f1efe8;
+            background-color: #ebf3fa;
+            z-index: -1;
+        }
+        
+        .row {
+            align-items: center;
+        }
+        
+        #customCarousel1 {
+            width: 100%;
+            position: unset;
+        }
+        
+        .detail-box {
+        
+            h1 {
+                font-weight: bold;
+                margin-bottom: 15px;
+        
+            }
+        
+            .btn-box {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 0 -5px;
+            }
+        
+            a {
+                margin: 5px;
+                width: 175px;
+                text-align: center;
+            }
+        
+            .btn-1 {
+                @include hero_btn(var(--primary1), var(--white), 10px, 15px, 5px);
+            }
+        
+            .btn-2 {
+                @include hero_btn(var(--primary2), var(--white), 10px, 15px, 5px);
+            }
+        }
+        
+        .img-box {
+            img {
+                width: 100%;
+            }
+        }
+        
+        .carousel-indicators {
+            position: unset;
+            margin-top: 60px;
+        
+            li {
+                opacity: 1;
+                background-color: var(--primary2);
+                border: none;
+                width: 12px;
+                height: 12px;
+                border-radius: 15px;
+            
+                &.active {
+                    width: 25px;
+                    background-color: var(--primary1);
+                }
+            }
+        }
+    }
+}

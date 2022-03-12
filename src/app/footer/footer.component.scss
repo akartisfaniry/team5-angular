@@ -1,0 +1,18 @@
+:host {
+    .footer_section {
+        position: relative;
+        background-color: var(--primary1);
+        text-align: center;
+        
+        p {
+            color: var(--white);
+            padding: 20px 0;
+            margin: 0;
+            border-top: 1px solid var(--white);
+        
+            a {
+                color: inherit;
+            }
+        }
+    }
+}
