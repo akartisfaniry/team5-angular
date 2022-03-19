@@ -8,7 +8,6 @@ import { AuthentificationService } from '../service/authentification.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  userConnected: any;
 
   constructor(
       private authService: AuthentificationService,
