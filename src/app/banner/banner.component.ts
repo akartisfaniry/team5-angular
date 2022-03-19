@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../service/api.service';
 
 @Component({
   selector: 'app-banner',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./banner.component.scss']
 })
 export class BannerComponent implements OnInit {
-
-  constructor() { }
+  banners: any
+  numbers: any
+  constructor(
+    public apiService: ApiService
+  ) { }
 
   ngOnInit(): void {
+    this.apiService.getBanners()
+      .subscribe(data => {
+        this.banners = data
+        this.numbers = Array(this.banners.length).fill(1).map((x,i)=>i+1);
+      });
   }
 
 }
