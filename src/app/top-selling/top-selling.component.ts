@@ -22,9 +22,6 @@ export class TopSellingComponent implements OnInit {
       this.products = data;
     });
 
-    if (!this.authService.isLoggedIn()){
-      this.router.navigate(['login'])
-    }
   }
 
 }
