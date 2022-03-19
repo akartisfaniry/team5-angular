@@ -1,8 +1,8 @@
 <section class="contact_section layout_padding2-top layout_padding-bottom">
     <div class="container">
         <div class="heading_container heading_center">
-            <h2>Login</h2>
-            <span class="text-danger"><b>Erreur !</b> login failed !</span>
+            <h2>Lamba Login</h2>
+            <span *ngIf="loginFailed" class="text-danger"><b>Erreur !</b> {{ message }}</span>
         </div>
         <div class="row d-flex justify-content-center">
             <div class="col-md-6 px-0">
@@ -10,16 +10,16 @@
                     <form action="">
                         <div class="form-row">
                             <div class="form-group col">
-                                <input type="text" class="form-control" placeholder="Pseudo" />
+                                <input type="text" [(ngModel)]="username" name="username" class="form-control" placeholder="Pseudo" />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col">
-                                <input type="password" class="form-control" placeholder="Mot de passe" />
+                                <input type="password" [(ngModel)]="userpass" name="userpass" class="form-control" placeholder="Mot de passe" />
                             </div>
                         </div>
                         <div class="btn_box d-flex justify-content-center">
-                            <button>
+                            <button (click)="_login($event)">
                                 Se connecter
                             </button>
                         </div>
