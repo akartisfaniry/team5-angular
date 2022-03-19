@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { Product } from '../entity/product';
 import { environment } from 'src/environments/environment';
+import { Banner } from '../entity/banner';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,13 @@ export class ApiService {
   {
     return this.http
           .get<Product>(environment.apiUrl+'produits')
+          .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getBanners(): Observable<Banner>
+  {
+    return this.http
+          .get<Banner>(environment.apiUrl+'publicites')
           .pipe(retry(1), catchError(this.handleError));
   }
 
