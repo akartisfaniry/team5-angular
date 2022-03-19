@@ -46,8 +46,8 @@ export class ApiService {
   }
 
   async doLogin(username: string, password: string): Promise<LoginResponse | void> {
-    const url = environment.apiUrl+"/login";
-    const body = {"username": "test", "password": "admin"};
+    const url = environment.apiUrl+"login";
+    const body = {"username": username, "password": password};
     const options = {headers: {'Content-Type': 'application/json'}};
     return await this.http.post<LoginResponse>(url,body,options).toPromise().then(res => {
       console.log(res);
