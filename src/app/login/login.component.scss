@@ -1,0 +1,84 @@
+:host{
+
+  .contact_section {
+    position: relative;
+
+    .heading_container {
+      margin-bottom: 45px;
+    }
+
+    .row {
+      -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+      align-items: stretch;
+    }
+
+    .form_container {
+      background-color: #4E7F6A;
+      padding: 45px;
+
+      .form-control {
+        width: 100%;
+        border: none;
+        height: 50px;
+        margin-bottom: 15px;
+        padding-left: 15px;
+        outline: none;
+        color: #101010;
+        -webkit-box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
+        border-radius: 0;
+
+        .message-box {
+          height: 95px;
+        }
+
+      }
+
+      .form-control::-webkit-input-placeholder {
+        color: #565554;
+      }
+
+      .form-control:-ms-input-placeholder {
+         color: #565554;
+       }
+
+      .form-control::-ms-input-placeholder {
+        color: #565554;
+      }
+
+      .form-control::placeholder {
+        color: #565554;
+      }
+
+      .btn_box {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+
+        button {
+          border: none;
+          text-transform: uppercase;
+          display: inline-block;
+          padding: 10px 55px;
+          background-color: #f89646;
+          color: #ffffff;
+          border-radius: 0px;
+          border: 1px solid #f89646;
+          -webkit-transition: all .3s;
+          transition: all .3s;
+
+        }
+
+        button:hover {
+          background-color: transparent;
+          color: #f89646;
+        }
+
+      }
+
+    }
+
+  }
+
+}

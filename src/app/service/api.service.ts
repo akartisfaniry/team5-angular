@@ -5,6 +5,10 @@ import { Product } from '../entity/product';
 import { environment } from 'src/environments/environment';
 import { Banner } from '../entity/banner';
 
+export interface LoginResponse {
+  access_token: any;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -48,4 +52,21 @@ export class ApiService {
       return errorMessage;
     });
   }
+
+  async doLogin(username: string, password: string): Promise<LoginResponse | void> {
+    const url = environment.apiUrl+"login";
+    const body = {"username": username, "password": password};
+    const options = {headers: {'Content-Type': 'application/json'}};
+    return await this.http.post<LoginResponse>(url,body,options).toPromise().then(res => {
+      console.log(res);
+      return res as LoginResponse;
+    }).catch(err => {
+      console.log({err});
+    });
+
+    //static return
+    //return Promise.resolve({access_token: "null"} as LoginResponse);
+  }
+
+
 }
