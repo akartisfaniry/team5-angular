@@ -4,13 +4,26 @@ import { catchError, Observable, retry, throwError } from 'rxjs';
 import { Product } from '../entity/product';
 import { environment } from 'src/environments/environment';
 import { Banner } from '../entity/banner';
+import { Categorie } from '../entity/Categorie';
+
+export class SearchProduct {
+  name: string = "";
+  categ: string = "";
+  offset: number = 0;
+  limit: number = 10;
+}
+
+export class ResultSearchProduct {
+  produits: Product[] = [];
+  total: any = 0;
+}
 
 export interface LoginResponse {
   access_token: any;
 }
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ApiService {
 
@@ -37,6 +50,22 @@ export class ApiService {
     return this.http
           .get<Banner>(environment.apiUrl+'annonces', this.httpOptions)
           .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getCategories(): Observable<Categorie[]>{
+    return this.http
+        .get<Categorie[]>(environment.apiUrl + 'categories',this.httpOptions)
+        .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getSearchAdvancedProducts(tosearch: SearchProduct): Observable<ResultSearchProduct> {
+    let url = environment.apiUrl + 'searchAdvancedProduct?libelle=' + tosearch.name + '&categorie=' + tosearch.categ + '&offset=' + tosearch.offset + '&limit=' + tosearch.limit;
+    return this.http
+        .get<ResultSearchProduct>(url,this.httpOptions)
+        .pipe(retry(0), catchError((e) => {
+          //return of({} as Product).pipe(); // return list [] of observable
+          throw e;
+        }));
   }
 
   handleError(error: any) {
