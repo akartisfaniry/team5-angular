@@ -3,4 +3,5 @@ export interface Banner {
     libelle: string;
     description: string;
     filename: string;
+    rang: number;
 }
