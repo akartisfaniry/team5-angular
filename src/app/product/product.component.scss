@@ -75,5 +75,11 @@
         @include hero_btn(var(--primary1), var(--white), 10px, 45px, 0);
       }
     }
+
+    .pagination{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
   }
 }

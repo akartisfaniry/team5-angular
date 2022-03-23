@@ -64,8 +64,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                 </div>
+            </div>
+            <div *ngIf="products.length" class="my-4 pagination">
+                <mat-paginator #paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="default_PageSize" [length]="totalElements" (page)="nextPage($event)"> </mat-paginator>
             </div>
         </div>
     </div>
+
 </section>
