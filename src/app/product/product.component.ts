@@ -11,6 +11,8 @@ export class ProductComponent implements OnInit {
 
     products: any = [];
     productName: string = "";
+    categories = [{key: "tous",value: ""},{key: "pantalon",value: "pantalon"}, {key: "tShirt",value: "tShirt"}];
+    productCategorie = this.categories[0].value;
     totalElements: number = 0;
     pageSizeOptions: any = [3, 6, 9, 12];
     default_PageSize: number = 9;
@@ -39,26 +41,23 @@ export class ProductComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getProducts({name: this.productName, categ: "",  offset: 0, limit: this.default_PageSize});
+        this.getProducts({name: this.productName, categ: this.productCategorie,  offset: 0, limit: this.default_PageSize});
     }
 
     nextPage(event: PageEvent) {
         const pageIndex: number = Number(event.pageIndex.toString());
         const pageSize: number = Number(event.pageSize.toString());
-        const request: any = {};
-        request['name'] = this.productName;
-        request['categ'] = "";
-        request['offset'] = pageIndex * pageSize;
-        request['limit'] = pageSize;
-        this.getProducts(request);
+        this.getProducts({name: this.productName, categ: this.productCategorie, offset: pageIndex * pageSize, limit: pageSize});
     }
     _search(event: any): void {
 
         if (event) event.preventDefault();
 
+        console.log("Catégorie ", this.productCategorie)
+
         this.paginator.pageIndex = 0;
         this.paginator.pageSize = this.default_PageSize;
-        this.getProducts({name: this.productName, categ: "", offset: 0, limit: this.default_PageSize});
+        this.getProducts({name: this.productName, categ: this.productCategorie, offset: 0, limit: this.default_PageSize});
 
     }
 

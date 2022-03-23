@@ -16,8 +16,8 @@
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="productCateg">Catégories : </label>
-                            <select name="procutCateg" id="productCateg" class="form-control">
-                                <option>tous</option>
+                            <select name="procutCateg" [(ngModel)]="productCategorie" id="productCateg" class="form-control">
+                                <option *ngFor="let cat of categories" [ngValue]="cat.value">{{cat.key}}</option>
                             </select>
                         </div>
                     </div>
