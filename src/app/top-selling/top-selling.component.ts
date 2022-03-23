@@ -17,7 +17,6 @@ export class TopSellingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.ngOnInit();
     this.apiService.getTopSelling().subscribe((data: {}) => {
       this.products = data;
     });
