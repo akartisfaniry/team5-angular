@@ -21,20 +21,21 @@ export class ApiService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`
     }),
   };
 
   getTopSelling(): Observable<Product>
   {
     return this.http
-          .get<Product>(environment.apiUrl+'produits')
+          .get<Product>(environment.apiUrl+'produits', this.httpOptions)
           .pipe(retry(1), catchError(this.handleError));
   }
 
   getBanners(): Observable<Banner>
   {
     return this.http
-          .get<Banner>(environment.apiUrl+'publicites')
+          .get<Banner>(environment.apiUrl+'annonces', this.httpOptions)
           .pipe(retry(1), catchError(this.handleError));
   }
 
