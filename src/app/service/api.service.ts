@@ -5,6 +5,13 @@ import {Product} from '../entity/product';
 import {environment} from 'src/environments/environment';
 import {Banner} from '../entity/banner';
 
+export class SearchProduct {
+    name: string = "";
+    categ: string = "";
+    offset: number = 0;
+    limit: number = 10;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -26,9 +33,9 @@ export class ApiService {
             .get<Product>(environment.apiUrl + 'produits')
             .pipe(retry(1), catchError(this.handleError));
     }
-
-    getProducts(search: string = "", categ: string[] = []): Observable<Product> {
-        let url = environment.apiUrl + 'produits?search=' + search + '&categ=' + categ.join(",");
+    
+    getSearchAdvancedProducts(tosearch: SearchProduct): Observable<Product> {
+        let url = environment.apiUrl + 'searchAdvancedProduct?libelle=' + tosearch.name + '&categorie=' + tosearch.categ + '&offset=' + tosearch.offset + '&limit=' + tosearch.limit;
         return this.http
             .get<Product>(url)
             .pipe(retry(0), catchError((e) => {
