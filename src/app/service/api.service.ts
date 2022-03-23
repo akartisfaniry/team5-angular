@@ -12,6 +12,11 @@ export class SearchProduct {
     limit: number = 10;
 }
 
+export class ResultSearchProduct {
+    produits: Product[] = [];
+    total: any = 0;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -34,10 +39,10 @@ export class ApiService {
             .pipe(retry(1), catchError(this.handleError));
     }
     
-    getSearchAdvancedProducts(tosearch: SearchProduct): Observable<Product> {
+    getSearchAdvancedProducts(tosearch: SearchProduct): Observable<ResultSearchProduct> {
         let url = environment.apiUrl + 'searchAdvancedProduct?libelle=' + tosearch.name + '&categorie=' + tosearch.categ + '&offset=' + tosearch.offset + '&limit=' + tosearch.limit;
         return this.http
-            .get<Product>(url)
+            .get<ResultSearchProduct>(url)
             .pipe(retry(0), catchError((e) => {
                 //return of({} as Product).pipe(); // return list [] of observable
                 throw e;
