@@ -10,6 +10,7 @@ export class ProductComponent implements OnInit {
 
     products: any = [];
     productName: string = "";
+    totalElements: number = 0;
 
     // @ts-ignore
     constructor(
@@ -18,14 +19,11 @@ export class ProductComponent implements OnInit {
     }
 
     ngOnInit(): void {
-       this._search();
+        this.getProducts({name: this.productName, categ: "",  offset: 0, limit: 20});
     }
 
-    _search(event: any = null): void {
-
-        if (event)event.preventDefault();
-
-        this.apiService.getProducts(this.productName, ['robe', 'pantalon']).subscribe(
+    private getProducts(request: any){
+        this.apiService.getSearchAdvancedProducts(request).subscribe(
             (data: {}) => {
                 //convert list to array if not yet
                 data = Array.isArray(data) ? data : [data]
@@ -33,8 +31,15 @@ export class ProductComponent implements OnInit {
                 console.log({data})
                 this.products = data;
             }, (err) => {
-                this.products = []
+                this.products = [];
+                this.totalElements = 0;
             });
+    }
+    _search(event: any): void {
+
+        if (event) event.preventDefault();
+        this.getProducts({name: this.productName, categ: "", offset: 0, limit: 20});
+
     }
 
 }
