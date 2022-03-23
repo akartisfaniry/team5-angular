@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService, ResultSearchProduct} from '../service/api.service';
-import {MatPaginator, PageEvent } from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import { Categorie } from '../entity/Categorie';
 
 @Component({
     selector: 'app-product',
@@ -11,13 +12,13 @@ export class ProductComponent implements OnInit {
 
     products: any = [];
     productName: string = "";
-    categories = [{key: "tous",value: ""},{key: "pantalon",value: "pantalon"}, {key: "tShirt",value: "tShirt"}];
-    productCategorie = this.categories[0].value;
+    categories: any = [];
+    productCategorie: any = "";
     totalElements: number = 0;
     pageSizeOptions: any = [3, 6, 9, 12];
     default_PageSize: number = 9;
 
-    @ViewChild(MatPaginator, {static:false}) paginator: any;
+    @ViewChild(MatPaginator, {static: false}) paginator: any;
 
     // @ts-ignore
     constructor(
@@ -25,7 +26,7 @@ export class ProductComponent implements OnInit {
     ) {
     }
 
-    private getProducts(request: any){
+    private getProducts(request: any) {
         this.apiService.getSearchAdvancedProducts(request).subscribe(
             (data: ResultSearchProduct) => {
                 //convert list to array if not yet
@@ -41,23 +42,57 @@ export class ProductComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getProducts({name: this.productName, categ: this.productCategorie,  offset: 0, limit: this.default_PageSize});
+        //Recuperer liste catégories
+        this.apiService.getCategories().subscribe(
+            (data: Categorie[]) => {
+                console.log({data})
+                //[{key: "tous",value: ""},{key: "pantalon",value: "pantalon"}, {key: "tShirt",value: "tShirt"}];
+                this.categories.push({key: "tous", value: ""})
+                for (const item of data){
+                    this.categories.push({key: item.libelle, value: item.id})
+                }
+                this.productCategorie = this.categories[0].value
+            }, (err) => {
+                this.categories = [];
+            });
+
+        //Récuperer liste produits initale
+        this.getProducts({
+            name: this.productName,
+            categ: this.productCategorie,
+            offset: 0,
+            limit: this.default_PageSize
+        });
     }
 
     nextPage(event: PageEvent) {
         const pageIndex: number = Number(event.pageIndex.toString());
         const pageSize: number = Number(event.pageSize.toString());
-        this.getProducts({name: this.productName, categ: this.productCategorie, offset: pageIndex * pageSize, limit: pageSize});
+        this.getProducts({
+            name: this.productName,
+            categ: this.productCategorie,
+            offset: pageIndex * pageSize,
+            limit: pageSize
+        });
     }
+
     _search(event: any): void {
 
         if (event) event.preventDefault();
 
-        console.log("Catégorie ", this.productCategorie)
+        //Reinitialiser paramètre de pagination
+        if (this.paginator){
+            this.paginator.pageIndex = 0;
+            this.paginator.pageSize = this.default_PageSize;
+        }
 
-        this.paginator.pageIndex = 0;
-        this.paginator.pageSize = this.default_PageSize;
-        this.getProducts({name: this.productName, categ: this.productCategorie, offset: 0, limit: this.default_PageSize});
+        //Rechercher produit
+        this.getProducts({
+            name: this.productName,
+            categ: this.productCategorie,
+            offset: 0,
+            limit: this.default_PageSize
+        });
 
     }
 

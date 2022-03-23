@@ -4,6 +4,7 @@ import {catchError, Observable, retry, throwError, of} from 'rxjs';
 import {Product} from '../entity/product';
 import {environment} from 'src/environments/environment';
 import {Banner} from '../entity/banner';
+import { Categorie } from '../entity/Categorie';
 
 export class SearchProduct {
     name: string = "";
@@ -47,6 +48,12 @@ export class ApiService {
                 //return of({} as Product).pipe(); // return list [] of observable
                 throw e;
             }));
+    }
+
+    getCategories(): Observable<Categorie[]>{
+        return this.http
+            .get<Categorie[]>(environment.apiUrl + 'categories')
+            .pipe(retry(1), catchError(this.handleError));
     }
 
     getBanners(): Observable<Banner> {
