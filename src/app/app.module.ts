@@ -13,6 +13,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ProductComponent} from './product/product.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import {ProductComponent} from './product/product.component';
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MatPaginatorModule
     ],
     providers: [],
     bootstrap: [AppComponent]
