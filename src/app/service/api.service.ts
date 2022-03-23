@@ -31,6 +31,7 @@ export class ApiService {
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`
         }),
     };
 
@@ -43,7 +44,7 @@ export class ApiService {
     getSearchAdvancedProducts(tosearch: SearchProduct): Observable<ResultSearchProduct> {
         let url = environment.apiUrl + 'searchAdvancedProduct?libelle=' + tosearch.name + '&categorie=' + tosearch.categ + '&offset=' + tosearch.offset + '&limit=' + tosearch.limit;
         return this.http
-            .get<ResultSearchProduct>(url)
+            .get<ResultSearchProduct>(url,this.httpOptions)
             .pipe(retry(0), catchError((e) => {
                 //return of({} as Product).pipe(); // return list [] of observable
                 throw e;
@@ -52,7 +53,7 @@ export class ApiService {
 
     getCategories(): Observable<Categorie[]>{
         return this.http
-            .get<Categorie[]>(environment.apiUrl + 'categories')
+            .get<Categorie[]>(environment.apiUrl + 'categories',this.httpOptions)
             .pipe(retry(1), catchError(this.handleError));
     }
 
