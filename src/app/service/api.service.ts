@@ -4,6 +4,7 @@ import { catchError, Observable, retry, throwError } from 'rxjs';
 import { Product } from '../entity/product';
 import { environment } from 'src/environments/environment';
 import { Banner } from '../entity/banner';
+import { Basket } from '../entity/basket';
 import { Categorie } from '../entity/Categorie';
 
 export class SearchProduct {
@@ -49,6 +50,13 @@ export class ApiService {
   {
     return this.http
           .get<Banner>(environment.apiUrl+'annonces', this.httpOptions)
+          .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getBasketsForUserConnected(): Observable<Basket>
+  {
+    return this.http
+          .get<Basket>(environment.apiUrl+'findAllCommandByCurrentUser', this.httpOptions)
           .pipe(retry(1), catchError(this.handleError));
   }
 

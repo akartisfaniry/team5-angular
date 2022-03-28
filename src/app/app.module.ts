@@ -14,6 +14,7 @@ import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ProductComponent} from './product/product.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { BasketComponent } from './basket/basket.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         TopSellingComponent,
         LoginComponent,
         HomeComponent,
-        ProductComponent
+        ProductComponent,
+        BasketComponent
     ],
     imports: [
         BrowserModule,
