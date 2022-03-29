@@ -4,7 +4,9 @@ import { catchError, Observable, retry, throwError } from 'rxjs';
 import { Product } from '../entity/product';
 import { environment } from 'src/environments/environment';
 import { Banner } from '../entity/banner';
+import { Basket } from '../entity/basket';
 import { Categorie } from '../entity/Categorie';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 export class SearchProduct {
   name: string = "";
@@ -20,6 +22,11 @@ export class ResultSearchProduct {
 
 export interface LoginResponse {
   access_token: any;
+}
+
+export class ResponseData {
+  status: string = '';
+  message: string =  '';
 }
 
 @Injectable({
@@ -49,6 +56,13 @@ export class ApiService {
   {
     return this.http
           .get<Banner>(environment.apiUrl+'annonces', this.httpOptions)
+          .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getBasketsForUserConnected(): Observable<Basket>
+  {
+    return this.http
+          .get<Basket>(environment.apiUrl+'findAllCommandByCurrentUser', this.httpOptions)
           .pipe(retry(1), catchError(this.handleError));
   }
 
@@ -98,5 +112,15 @@ export class ApiService {
     //return Promise.resolve({access_token: "null"} as LoginResponse);
   }
 
+  async addBasketForUserConnected(idProduit: number, nombre: number): Promise<ResponseData | void> {
+    const url = environment.apiUrl+"insertCommande";
+    const body = {idProduit: idProduit, nombre: nombre};
+    return await this.http.post<ResponseData>(url,body,this.httpOptions).toPromise().then(res => {
+      console.log(res);
+      return res as ResponseData;
+    }).catch(err => {
+      console.log({err});
+    });
+  }
 
 }

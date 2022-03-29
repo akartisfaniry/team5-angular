@@ -10,6 +10,7 @@ import { AuthentificationService } from '../service/authentification.service';
 })
 export class TopSellingComponent implements OnInit {
   products: any = [];
+  nombre: number = 1;
   constructor(
     public apiService: ApiService,
     private authService: AuthentificationService,
@@ -21,6 +22,14 @@ export class TopSellingComponent implements OnInit {
       this.products = data;
     });
 
+  }
+
+  async _addToBasket(id:number) {
+    console.log(id)
+    console.log(this.nombre)
+    let responseData = await this.apiService.addBasketForUserConnected(id, this.nombre);
+    console.log("response ", responseData)
+    
   }
 
 }
