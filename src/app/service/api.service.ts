@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Banner } from '../entity/banner';
 import { Basket } from '../entity/basket';
 import { Categorie } from '../entity/Categorie';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 export class SearchProduct {
   name: string = "";
@@ -21,6 +22,11 @@ export class ResultSearchProduct {
 
 export interface LoginResponse {
   access_token: any;
+}
+
+export class ResponseData {
+  status: string = '';
+  message: string =  '';
 }
 
 @Injectable({
@@ -106,5 +112,15 @@ export class ApiService {
     //return Promise.resolve({access_token: "null"} as LoginResponse);
   }
 
+  async addBasketForUserConnected(idProduit: number, nombre: number): Promise<ResponseData | void> {
+    const url = environment.apiUrl+"insertCommande";
+    const body = {idProduit: idProduit, nombre: nombre};
+    return await this.http.post<ResponseData>(url,body,this.httpOptions).toPromise().then(res => {
+      console.log(res);
+      return res as ResponseData;
+    }).catch(err => {
+      console.log({err});
+    });
+  }
 
 }
