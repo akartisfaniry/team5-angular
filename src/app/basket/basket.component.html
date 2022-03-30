@@ -17,6 +17,7 @@
                 <th scope="col" sortable="nombre">Nombre</th>
                 <th scope="col" sortable="prix_total">Prix Total</th>
                 <th scope="col" sortable="statut">Statut</th>
+                <th scope="col" sortable="actiios">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -30,6 +31,10 @@
                 <td>{{ basket.nombre }}</td>
                 <td>{{ basket.prixTotal }}</td>
                 <td>{{ basket.statut == 0 ? 'En attente' : 'Validée' }}</td>
+                <td>
+                    <button class="btn-success actions-btn"><i class="fa fa-check"></i></button>
+                    <button class="btn-success actions-btn delete"><i class="fa fa-remove"></i></button>
+                </td>
             </tr>
             </tbody>
         </table>
