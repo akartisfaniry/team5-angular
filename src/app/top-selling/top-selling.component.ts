@@ -19,10 +19,11 @@ export class TopSellingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getTopSelling().subscribe((data: {}) => {
-      this.products = data;
-    });
-
+    if (this.authService.isLoggedIn()){
+      this.apiService.getTopSelling().subscribe((data: {}) => {
+        this.products = data;
+      });
+    }
   }
 
   async _addToBasket(product:Product) {
