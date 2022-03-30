@@ -64,6 +64,23 @@
           margin-bottom: 0;
         }
       }
+      .basket-box {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 20px;
+        .quantity {
+          height: 50px;
+        }
+        .btn-command-box {
+          display: flex;
+          justify-content: center;
+          a {
+            padding: 10px 12px!important;
+            @include hero_btn(var(--primary1), var(--white), 10px, 45px, 0);
+          }
+        }
+      }
     }
 
     .btn-box {

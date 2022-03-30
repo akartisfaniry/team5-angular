@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService, ResultSearchProduct} from '../service/api.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import { Categorie } from '../entity/Categorie';
+import Swal from 'sweetalert2';
+import { Product } from '../entity/product';
 
 @Component({
     selector: 'app-product',
@@ -95,5 +97,26 @@ export class ProductComponent implements OnInit {
         });
 
     }
+
+    async _addToBasket(product:Product) {
+        let id = product.id;
+        let nombre = product.nombre;
+        let libelle = product.libelle;
+        console.log(id)
+        console.log(nombre)
+        if (nombre!==undefined){
+          let responseData = await this.apiService.addBasketForUserConnected(id, nombre);
+          if (responseData!=null && responseData.status === 'success'){
+            Swal.fire('Panier', nombre+' produit "'+libelle+'" ajouté avec succès', 'success');
+          }
+          else{
+            Swal.fire('Panier', "Un erreur s'est produit!", 'error');
+          }
+        }
+        else {
+          Swal.fire('Veuillez selectionnez un quantité!');
+        }
+        
+      }
 
 }

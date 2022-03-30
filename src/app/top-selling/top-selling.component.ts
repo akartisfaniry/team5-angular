@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { Product } from '../entity/product';
 import { ApiService } from '../service/api.service';
 import { AuthentificationService } from '../service/authentification.service';
 
@@ -10,7 +12,6 @@ import { AuthentificationService } from '../service/authentification.service';
 })
 export class TopSellingComponent implements OnInit {
   products: any = [];
-  nombre: number = 1;
   constructor(
     public apiService: ApiService,
     private authService: AuthentificationService,
@@ -24,11 +25,24 @@ export class TopSellingComponent implements OnInit {
 
   }
 
-  async _addToBasket(id:number) {
+  async _addToBasket(product:Product) {
+    let id = product.id;
+    let nombre = product.nombre;
+    let libelle = product.libelle;
     console.log(id)
-    console.log(this.nombre)
-    let responseData = await this.apiService.addBasketForUserConnected(id, this.nombre);
-    console.log("response ", responseData)
+    console.log(nombre)
+    if (nombre!==undefined){
+      let responseData = await this.apiService.addBasketForUserConnected(id, nombre);
+      if (responseData!=null && responseData.status === 'success'){
+        Swal.fire('Panier', nombre+' produit "'+libelle+'" ajouté avec succès', 'success');
+      }
+      else{
+        Swal.fire('Panier', "Un erreur s'est produit!", 'error');
+      }
+    }
+    else {
+      Swal.fire('Veuillez selectionnez un quantité!');
+    }
     
   }
 

@@ -3,4 +3,5 @@ export interface Product {
     libelle: string;
     description: string;
     prix: number;
+    nombre: number;
 }

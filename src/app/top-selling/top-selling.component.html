@@ -26,11 +26,11 @@
             </div>
             <div class="basket-box">
                 <div class="col-sm-7">
-                  <input type="number" name="nombre" min="1" id="" [(ngModel)]="nombre" class="form-control quantity" placeholder="Quantité">
+                  <input type="number" name="nombre" min="1" id="" [(ngModel)]="product.nombre" class="form-control quantity" placeholder="Quantité">
                 </div>
                 <div class="col-sm-5">
                   <div class="btn-command-box">
-                    <a href="javascript:void(0)" (click)="_addToBasket(product.id)" class="btn-1">
+                    <a href="javascript:void(0)" (click)="_addToBasket(product)" class="btn-1">
                       Commander
                     </a>
                   </div>
