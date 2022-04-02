@@ -1,6 +1,3 @@
-<app-header></app-header>
-<router-outlet>
-  <app-banner></app-banner>
-  <app-top-selling></app-top-selling>
-</router-outlet>
-<app-footer></app-footer>
+<app-header *ngIf="isConnected"></app-header>
+<router-outlet></router-outlet>
+<app-footer *ngIf="isConnected"></app-footer>

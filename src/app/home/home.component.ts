@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { AuthentificationService } from '../service/authentification.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HomeComponent implements OnInit {
 
   constructor(
       private authService: AuthentificationService,
@@ -15,10 +15,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
   }
 
-  _logout(): void{
-    this.authService.logout();
-    this.router.navigate(['login']);
-  }
 }

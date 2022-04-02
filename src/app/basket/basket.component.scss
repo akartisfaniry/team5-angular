@@ -1,0 +1,27 @@
+:host {
+    .basket_section {
+        .heading_container{
+            padding: 30px;
+        }
+        td, th {
+            padding: 20px;
+            text-align: center;
+        }
+        .actions-btn {
+            padding: 2px 12px;
+            margin: 5px;
+            display: inline-block;
+            background-color: var(--primary1);
+            color: var(--white);
+            border-radius: 0;
+            border: 1px solid var(--primary1);
+            transition: all 0.3s;
+        }
+        .actions-btn.validate {
+            background-color: var(--primary1);
+        }
+        .actions-btn.delete {
+            background-color: red;
+        }
+    }
+}
