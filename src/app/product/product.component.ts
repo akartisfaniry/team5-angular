@@ -100,21 +100,30 @@ export class ProductComponent implements OnInit {
 
     async _addToBasket(product:Product) {
         let id = product.id;
-        let nombre = product.nombre;
         let libelle = product.libelle;
-        console.log(id)
-        console.log(nombre)
-        if (nombre!==undefined){
-          let responseData = await this.apiService.addBasketForUserConnected(id, nombre);
+        const { value: nombre } = await Swal.fire({
+          title: 'Entrez la quantité que vous souhaitez',
+          icon: 'info',
+          input: 'number',
+          inputAttributes: {
+            'min': '1',
+          },
+          inputLabel: 'Produit: '+libelle,
+          inputValue: 1,
+          showCancelButton: false,
+          confirmButtonText: 'Valider',
+          showLoaderOnConfirm: true,
+        })
+        if (nombre) {
+          console.log('nombre '+nombre);
+          
+          let responseData = await this.apiService.addBasketForUserConnected(id, parseInt(nombre));
           if (responseData!=null && responseData.status === 'success'){
             Swal.fire('Panier', nombre+' produit "'+libelle+'" ajouté avec succès', 'success');
           }
           else{
             Swal.fire('Panier', "Un erreur s'est produit!", 'error');
           }
-        }
-        else {
-          Swal.fire('Veuillez selectionnez un quantité!');
         }
         
       }

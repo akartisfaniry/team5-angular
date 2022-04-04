@@ -4,5 +4,6 @@ export interface Basket {
     nombre: number;
     prixTotal: number;
     statut: number;
+    statutValue: string ;
     prixProduit: number;
 }
