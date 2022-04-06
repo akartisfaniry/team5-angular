@@ -48,7 +48,7 @@ export class ApiService {
   getTopSelling(): Observable<Product>
   {
     return this.http
-          .get<Product>(environment.apiUrl+'produits', this.httpOptions)
+          .get<Product>(environment.apiUrl+'findTopProducts', this.httpOptions)
           .pipe(retry(1), catchError(this.handleError));
   }
 
