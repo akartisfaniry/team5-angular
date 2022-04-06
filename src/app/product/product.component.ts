@@ -19,6 +19,7 @@ export class ProductComponent implements OnInit {
     totalElements: number = 0;
     pageSizeOptions: any = [3, 6, 9, 12];
     default_PageSize: number = 9;
+    in_search: boolean = false;
 
     @ViewChild(MatPaginator, {static: false}) paginator: any;
 
@@ -95,7 +96,7 @@ export class ProductComponent implements OnInit {
             offset: 0,
             limit: this.default_PageSize
         });
-
+        this.in_search = true;
     }
 
     async _addToBasket(product:Product) {
@@ -110,8 +111,9 @@ export class ProductComponent implements OnInit {
           },
           inputLabel: 'Produit: '+libelle,
           inputValue: 1,
-          showCancelButton: false,
+          showCancelButton: true,
           confirmButtonText: 'Valider',
+          cancelButtonText: 'Annuler',
           showLoaderOnConfirm: true,
         })
         if (nombre) {

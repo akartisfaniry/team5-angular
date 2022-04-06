@@ -36,8 +36,11 @@
             </div>
             <div *ngIf="products.length" class="list-cat">
                 <div class="heading_container heading_center">
-                    <h2>
+                    <h2 *ngIf="in_search">
                         Résultat(s) ({{products.length}})
+                    </h2>
+                    <h2 *ngIf="!in_search">
+                        Nos Produits
                     </h2>
                     <!--<p>
                         Description catégorie 1

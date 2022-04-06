@@ -38,8 +38,9 @@ export class TopSellingComponent implements OnInit {
       },
       inputLabel: 'Produit: '+libelle,
       inputValue: 1,
-      showCancelButton: false,
+      showCancelButton: true,
       confirmButtonText: 'Valider',
+      cancelButtonText: 'Annuler',
       showLoaderOnConfirm: true,
     })
     if (nombre) {
