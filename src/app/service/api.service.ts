@@ -48,7 +48,7 @@ export class ApiService {
   getTopSelling(): Observable<Product>
   {
     return this.http
-          .get<Product>(environment.apiUrl+'produits', this.httpOptions)
+          .get<Product>(environment.apiUrl+'findTopProducts', this.httpOptions)
           .pipe(retry(1), catchError(this.handleError));
   }
 
@@ -123,4 +123,23 @@ export class ApiService {
     });
   }
 
+  async removeBasket(idCommande: number): Promise<ResponseData | void> {
+    const url = environment.apiUrl+"deleteCommande/"+idCommande;
+    return await this.http.delete<ResponseData>(url,this.httpOptions).toPromise().then(res => {
+      console.log(res);
+      return res as ResponseData;
+    }).catch(err => {
+      console.log({err});
+    });
+  }
+
+  async validateBasket(idCommande: number): Promise<ResponseData | void> {
+    const url = environment.apiUrl+"doCommande";
+    return await this.http.post<ResponseData>(url,{idCommande: idCommande},this.httpOptions).toPromise().then(res => {
+      console.log(res);
+      return res as ResponseData;
+    }).catch(err => {
+      console.log({err});
+    });
+  }
 }

@@ -1,5 +1,6 @@
 :host {
-    .header_section {
+    grid-area: header;
+    .header_section { 
         .container-fluid {
           padding-right: 25px;
           padding-left: 25px;

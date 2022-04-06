@@ -2,11 +2,8 @@
     <div class="m-3">
         <div class="heading_container heading_center">
             <h2>
-                Vos Commandes
+                Panier
             </h2>
-            <!--<p>
-                Description catégorie 1
-            </p>-->
         </div>
         <table class="table table-striped">
             <thead>
@@ -30,10 +27,12 @@
                 <td>{{ basket.prixProduit }}</td>
                 <td>{{ basket.nombre }}</td>
                 <td>{{ basket.prixTotal }}</td>
-                <td>{{ basket.statut == 0 ? 'En attente' : 'Validée' }}</td>
+                <td>{{ basket.statutValue }}</td>
                 <td>
-                    <button class="btn-success actions-btn"><i class="fa fa-check"></i></button>
-                    <button class="btn-success actions-btn delete"><i class="fa fa-remove"></i></button>
+                    <div *ngIf="basket.statut == 0">
+                        <button class="btn-success actions-btn" title="Commander" (click)="_doCommande(basket.idCommande)"><i class="fa fa-check"></i></button>
+                        <button class="btn-success actions-btn delete" title="Supprimer" (click)="_deleteCommande(basket.idCommande)"><i class="fa fa-trash"></i></button>
+                    </div>
                 </td>
             </tr>
             </tbody>
