@@ -1,6 +1,6 @@
 :host{
 
-  .contact_section {
+  .login_section {
     position: relative;
 
     .heading_container {
@@ -14,7 +14,7 @@
     }
 
     .form_container {
-      background-color: #4E7F6A;
+      background-color: var(--primary1);
       padding: 45px;
 
       .form-control {
@@ -61,10 +61,10 @@
           text-transform: uppercase;
           display: inline-block;
           padding: 10px 55px;
-          background-color: #f89646;
+          background-color: var(--primary2);
           color: #ffffff;
           border-radius: 0px;
-          border: 1px solid #f89646;
+          border: 1px solid var(--primary1);
           -webkit-transition: all .3s;
           transition: all .3s;
 
@@ -72,11 +72,14 @@
 
         button:hover {
           background-color: transparent;
-          color: #f89646;
+          color: var(--primary1);
         }
 
       }
 
+    }
+    .error {
+      color: var(--primary2);
     }
 
   }
