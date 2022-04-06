@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ApiService } from './api.service';
+import { ApiService, LoginResponse } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +14,16 @@ export class AuthentificationService {
       private apiService: ApiService
   ) { }
 
-  async authenticate(username: string, password: string){
+  async authenticate(username: string, password: string): Promise<LoginResponse | null>
+  {
     let loginResponse = await this.apiService.doLogin(username,password);
     console.log("retour login", loginResponse);
     if (loginResponse!=null && loginResponse.access_token!=null){
       console.log("authenticate successfull");
 
-      //create session
-      sessionStorage.setItem("access_token", loginResponse.access_token);
-
-      //maj observable status user connected
-      //this.isLogged.next(true);
-
-      return true;
+      return loginResponse;
     }
-    return false;
+    return null;
   }
 
   isLoggedIn(){

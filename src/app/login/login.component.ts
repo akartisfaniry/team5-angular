@@ -30,8 +30,12 @@ export class LoginComponent implements OnInit {
     event.preventDefault();
 
     this.loginFailed = false;
-    if (await this.authService.authenticate(this.username, this.userpass)){
+    let loginResponse = await this.authService.authenticate(this.username, this.userpass);
+    if (loginResponse){
       console.log('login true')
+
+      sessionStorage.setItem("access_token", loginResponse.access_token);
+      
       this.router.navigate(['home']).then(()=>{
         //refresh page pour mettre à jours l'app.component.html
         window.location.reload()
